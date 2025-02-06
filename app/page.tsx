@@ -1,7 +1,15 @@
-export default function Home() {
+import { getEvents } from "../lib/utils";
+import Event from "../components/Event";
+
+export default async function Home() {
+  const events = await getEvents();
+
   return (
     <div>
-      <h1>Hi</h1>
+      <h2>Events</h2>
+      {events.map((event) => (
+        <Event event={event} />
+      ))}
     </div>
   );
 }
