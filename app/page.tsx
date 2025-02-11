@@ -28,7 +28,7 @@ export default function Home() {
     fetchEvents();
 
     setLoading(false);
-  }, []);
+  }, [username]);
 
   const handleLogout = () => {
     Cookies.remove("username");
