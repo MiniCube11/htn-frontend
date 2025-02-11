@@ -5,7 +5,7 @@ export default async function Home() {
   const events = await getEvents();
 
   return (
-    <div>
+    <div className="flex flex-col items-center w-full mb-32">
       <h2>Events</h2>
       {events.map((event) => (
         <Event event={event} />
