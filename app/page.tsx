@@ -29,12 +29,14 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full mb-32">
-      <h2>Events</h2>
+    <div className="flex flex-col items-center w-full mt-24 mb-32">
+      <h2 className="text-2xl font-bold w-[90vw] lg:w-[600px]">Events</h2>
       {loading && <p>Loading...</p>}
-      {events.map((event) => (
-        <Event event={event} />
-      ))}
+      <div className="mt-10">  
+        {events.map((event) => (
+          <Event event={event} />
+        ))}
+      </div>
     </div>
   );
 }
