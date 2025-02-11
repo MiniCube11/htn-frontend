@@ -9,6 +9,17 @@ export async function getEvents() : Promise<TEvent[]> {
   return eventsData;
 }
 
+export function filterEventsByPermission(events: TEvent[], username: string) {
+  console.log("usernmae", username)
+
+  if (username === "") {
+    console.log(events.filter((event) => event.permission === "public"));
+    return events.filter((event) => event.permission === "public");
+  }
+
+  return events;
+}
+
 export function formatDate(time: number) {
   const date = new Date(time);
 
