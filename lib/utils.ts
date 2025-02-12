@@ -10,8 +10,6 @@ export async function getEvents() : Promise<TEvent[]> {
 }
 
 export function filterEventsByPermission(events: TEvent[], username: string) {
-  console.log("usernmae", username)
-
   if (username === "") {
     console.log(events.filter((event) => event.permission === "public"));
     return events.filter((event) => event.permission === "public");
@@ -44,4 +42,8 @@ export function formatEventType(eventType: string) {
     default:
       return "";
   }
+}
+
+export function authenticateUser(username: string, password: string) {
+  return username === "hacker" && password === "htn2025";
 }

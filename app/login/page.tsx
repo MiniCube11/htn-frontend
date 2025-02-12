@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { authenticateUser } from "@/lib/utils";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -19,7 +20,7 @@ export default function Login() {
   const handleLogin = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
-    if (username === "hacker" && password === "htn2025") {
+    if (authenticateUser(username, password)) {
       Cookies.set("username", username, {expires: 1});
       router.push("/");
     } else {
