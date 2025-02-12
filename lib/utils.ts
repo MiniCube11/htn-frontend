@@ -27,6 +27,12 @@ export function formatDate(time: number) {
   }
 }
 
+export function formatDateLong(time: number) {
+  const date = new Date(time);
+
+  return date.toLocaleString("default", { weekday: "long" }) + ", " + date.toLocaleString("default", { month: "long" }) + " " + date.getDate();
+}
+
 export function formatTime(time: number) {
   return new Date(time).toLocaleTimeString("en-us", { hour: "numeric", minute: "2-digit", hour12: true });
 }

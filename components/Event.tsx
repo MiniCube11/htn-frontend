@@ -1,14 +1,16 @@
 import { TEvent } from "@/lib/type";
 import { formatDate, formatTime, formatEventType } from "@/lib/utils";
 
-export default function Event({ event }: { event: TEvent }) {
+export default function Event({ event, openEvent }: { event: TEvent; openEvent: (id: number) => void }) {
   const { month, day } = formatDate(event.start_time);
   const startTime = formatTime(event.start_time);
   const endTime = formatTime(event.end_time);
   const eventType = formatEventType(event.event_type);
 
   return (
-    <div key={event.id} className="w-[90vw] lg:w-[600px] border border-gray-200 rounded py-4 px-6 my-2 hover:bg-gray-50 transition">
+    <div key={event.id}
+      onClick={() => openEvent(event.id)}
+      className="w-[90vw] lg:w-[600px] border border-gray-200 rounded py-4 px-6 my-2 hover:bg-gray-50 transition">
       <h2 className="font-medium">{event.name}</h2>
       <div className="block lg:flex text-gray-700 text-sm mt-1">
         <p className="mr-5">{month} {day} {startTime} - {endTime}</p>

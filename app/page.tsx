@@ -8,12 +8,22 @@ import Link from "next/link";
 import { getEvents, filterEventsByPermission } from "../lib/utils";
 import Event from "../components/Event";
 import { TEvent } from "@/lib/type";
+import EventDetail from "@/components/EventDetail";
 
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<TEvent[]>([]);
   const [username, setUsername] = useState("");
+  const [eventOpen, setEventOpen] = useState<number | null>(null);
+
+  const openEvent = (id: number) => {
+    setEventOpen(id);
+  }
+
+  const closeEvent = () => {
+    setEventOpen(null);
+  }
 
   useEffect(() => {
     if (Cookies.get("username")) {
@@ -59,9 +69,12 @@ export default function Home() {
       {loading && <p>Loading...</p>}
       <div className="mt-10">  
         {events.map((event) => (
-          <Event key={event.id} event={event} />
+          <Event key={event.id} event={event} openEvent={openEvent} />
         ))}
       </div>
+
+      {eventOpen !== null && 
+        <EventDetail event={events[eventOpen]} closeEvent={closeEvent} />}
     </div>
   );
 }
