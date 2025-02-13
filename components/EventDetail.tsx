@@ -16,9 +16,12 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
     <div 
       className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center">
       <div onClick={closeEvent} className="absolute top-0 left-0 w-full h-full bg-[#e1e1e152] z-[-10]" />
-      <div className="bg-white rounded-lg px-8 py-6 w-[90vw] lg:w-[600px]">
+      <div className="bg-white border border-gray-300 rounded-lg px-8 py-6 w-[90vw] lg:w-[600px] shadow-lg">
         <div className="w-full flex justify-start">
-          <button onClick={() => setEventOpen(null)}>← Back to events</button>
+          <button className="transition hover:text-gray-500" onClick={() => setEventOpen(null)}>
+            <span className="mr-2">←</span>
+            Back to events
+          </button>
         </div>
         <div className="mt-4 flex justify-between items-center w-[calc(90vw-64px)] lg:w-[536px]">
           <h2 className="text-xl font-semibold">{event.name}</h2>
@@ -85,7 +88,7 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
                 {event.related_events.map((relatedEvent) => (
                   <button
                     key={relatedEvent}
-                    className="text-blue-500 underline hover:text-blue-700 block"
+                    className="text-blue-500 hover:underline hover:text-blue-700 block"
                     onClick={() => setEventOpen(relatedEvent)}>
                     {events.find(event => event.id === relatedEvent)?.name ?? ""}
                   </button>
