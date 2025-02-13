@@ -1,7 +1,7 @@
 import { TEvent } from "@/lib/type";
-import { formatDate, formatTime, formatEventType, formatDateLong } from "@/lib/utils";
+import { formatTime, formatEventType, formatDateLong } from "@/lib/utils";
 import Link from "next/link";
-import { Heart } from "lucide-react";
+import { Heart, X } from "lucide-react";
 
 export default function EventDetail({ event, events, closeEvent, toggleLike, isLiked, setEventOpen }: { event: TEvent; events: TEvent[], closeEvent: () => void; toggleLike: (id: number) => void; isLiked: (id: number) => boolean; setEventOpen: (id: number | null) => void }) {
   const date = formatDateLong(event.start_time);
@@ -17,11 +17,14 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
       className="fixed top-0 left-0 w-full h-full flex flex-col items-center justify-center">
       <div onClick={closeEvent} className="absolute top-0 left-0 w-full h-full bg-[#e1e1e152] z-[-10]" />
       <div className="bg-white rounded-lg px-8 py-6 w-[90vw] lg:w-[600px]">
-        <div className="flex justify-between items-center w-[calc(90vw-64px)] lg:w-[536px]">
+        <div className="w-full flex justify-start">
+          <button onClick={() => setEventOpen(null)}>← Back to events</button>
+        </div>
+        <div className="mt-4 flex justify-between items-center w-[calc(90vw-64px)] lg:w-[536px]">
           <h2 className="text-xl font-semibold">{event.name}</h2>
           <Heart
             size={18}
-            onClick={(e) => toggleLike(event.id)}
+            onClick={() => toggleLike(event.id)}
             className={isLiked(event.id) ? "fill-[#FF3040] stroke-[#FF3040]" : "stroke-[#9fa8b9] hover:stroke-[#f05d6a]"}
           />
         </div>
@@ -31,7 +34,16 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
               <p className="text-gray-600 text-sm">Hosted by {event.speakers[0].name}</p>
             }
           </div>
-          <div className="flex items-center mt-4 ml-[-5px] w-[calc(90vw-64px)] lg:w-[536px]">
+
+          <span
+            className={`text-xs mt-2 ${textColour} inline-block px-1.5 py-0.5 rounded-md ${bgColour}`}>
+            {eventType}
+          </span>
+          <span className="text-xs mt-2 ml-2 text-[#1f474c] bg-[#ceeff3] inline-block px-1.5 py-0.5 rounded-md">
+            {event.permission === "public" ? "Public" : "Private"}
+          </span>
+
+          <div className="flex items-center mt-6 ml-[-5px] w-[calc(90vw-64px)] lg:w-[536px]">
             <p className="text-3xl">📆</p>
             <div className="ml-3">
               <p className="mr-5 font-medium">{date}</p>
@@ -60,33 +72,29 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
           )}
         </div>
 
-        <span
-          className={`text-xs mt-4 ${textColour} inline-block px-1.5 py-0.5 rounded-md ${bgColour}`}>
-          {eventType}
-        </span>
-        <span className="text-xs mt-4 ml-2 text-[#1f474c] bg-[#ceeff3] inline-block px-1.5 py-0.5 rounded-md">
-          {event.permission === "public" ? "Public" : "Private"}
-        </span>
-
         <div className="mt-5 text-base">
           <p>{event.description}</p>
         </div>
 
-        <div className="h-[0.5px] bg-gray-300 mt-6 mb-4" />
-        
-        <div>
-          <p>Related Events</p>
-          <div className="">
-            {event.related_events.map((relatedEvent) => (
-              <button
-                key={relatedEvent}
-                className="text-blue-500 underline hover:text-blue-700 block"
-                onClick={() => setEventOpen(relatedEvent)}>
-                {events.find(event => event.id === relatedEvent)?.name ?? ""}
-              </button>
-            ))}
-          </div>
-        </div>
+        {event.related_events && 
+          <>
+            <div className="h-[0.5px] bg-gray-300 mt-6 mb-4" />
+            <div>
+              <p>Related Events</p>
+              <div className="">
+                {event.related_events.map((relatedEvent) => (
+                  <button
+                    key={relatedEvent}
+                    className="text-blue-500 underline hover:text-blue-700 block"
+                    onClick={() => setEventOpen(relatedEvent)}>
+                    {events.find(event => event.id === relatedEvent)?.name ?? ""}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </>
+        }
+
       </div>
     </div>
   );
