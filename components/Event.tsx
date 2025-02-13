@@ -1,7 +1,9 @@
 import { TEvent } from "@/lib/type";
 import { formatDate, formatTime, formatEventType } from "@/lib/utils";
+import { Heart } from "lucide-react";
+import { useState } from "react";
 
-export default function Event({ event, openEvent }: { event: TEvent; openEvent: (id: number) => void }) {
+export default function Event({ event, openEvent, toggleLike, isLiked }: { event: TEvent; openEvent: (id: number) => void; toggleLike: (id: number) => void; isLiked: (id: number) => boolean }) {
   const { month, day } = formatDate(event.start_time);
   const startTime = formatTime(event.start_time);
   const endTime = formatTime(event.end_time);
@@ -12,9 +14,19 @@ export default function Event({ event, openEvent }: { event: TEvent; openEvent: 
   return (
     <div key={event.id}
       onClick={() => openEvent(event.id)}
-      className="relative w-[90vw] lg:w-[600px] border border-gray-200 rounded py-4 px-10 my-3 hover:bg-gray-50 transition">
+      className="relative w-[90vw] lg:w-[600px] border border-gray-200 rounded py-4 px-8 my-3 hover:bg-gray-50 transition">
       <div className={`absolute rounded-l left-0 top-0 w-[5px] h-full ${bgColour}`}></div>
-      <h2 className="font-medium">{event.name}</h2>
+      <div className="flex justify-between items-center">
+        <h2 className="font-medium">{event.name}</h2>
+        <Heart
+          size={18}
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleLike(event.id);
+          }}
+          className={isLiked(event.id) ? "fill-[#FF3040] stroke-[#FF3040]" : "stroke-[#9fa8b9] hover:stroke-[#f05d6a]"}
+        />
+      </div>
       <div className="block lg:flex text-gray-700 text-sm mt-1">
         <p className="mr-5">📆 {month} {day} {startTime} - {endTime}</p>
         {event.speakers && event.speakers.length > 0 &&

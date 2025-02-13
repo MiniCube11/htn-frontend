@@ -2,20 +2,22 @@
 
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-import { getEvents, filterEventsByPermission } from "../lib/utils";
+import { getEvents, filterEventsByPermission, searchByQuery } from "../lib/utils";
 import Event from "../components/Event";
 import { TEvent } from "@/lib/type";
 import EventDetail from "@/components/EventDetail";
 
+import { Search } from "lucide-react";
+
 export default function Home() {
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState<TEvent[]>([]);
   const [username, setUsername] = useState("");
   const [eventOpen, setEventOpen] = useState<number | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [liked, setLiked] = useState<Record<number, boolean>>({});
 
   const openEvent = (id: number) => {
     setEventOpen(id);
@@ -25,6 +27,14 @@ export default function Home() {
     setEventOpen(null);
   }
 
+  const isLiked = (id: number) => {
+    return liked[id] || false;
+  }
+
+  const toggleLike = (id: number) => {
+    setLiked((prev) => ({ ...prev, [id]: !prev[id] }));
+  }
+
   useEffect(() => {
     if (Cookies.get("username")) {
       setUsername(Cookies.get("username"));
@@ -32,13 +42,15 @@ export default function Home() {
 
     const fetchEvents = async () => {
       const events = await getEvents();
-      setEvents(filterEventsByPermission(events, username));
+      const filteredEvents = filterEventsByPermission(events, username);
+      const searchedEvents = searchByQuery(filteredEvents, searchQuery);
+      setEvents(searchedEvents);
     };
 
     fetchEvents();
 
     setLoading(false);
-  }, [username]);
+  }, [username, searchQuery]);
 
   const handleLogout = () => {
     Cookies.remove("username");
@@ -66,10 +78,25 @@ export default function Home() {
         </div>
       </div>
       
+      <div className="relative w-[90vw] lg:w-[600px] mt-6">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+        <input
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search events"
+          className="border border-gray-300 rounded-md pl-10 pr-2 py-1 w-full lg:w-80"
+        />
+      </div>
+
       {loading && <p>Loading...</p>}
       <div className="mt-10">  
         {events.map((event) => (
-          <Event key={event.id} event={event} openEvent={openEvent} />
+          <Event
+            key={event.id}
+            event={event}
+            openEvent={openEvent}
+            isLiked={isLiked}
+            toggleLike={toggleLike}
+          />
         ))}
       </div>
 

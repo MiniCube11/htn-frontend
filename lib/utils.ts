@@ -18,6 +18,14 @@ export function filterEventsByPermission(events: TEvent[], username: string) {
   return events;
 }
 
+export function searchByQuery(events: TEvent[], query: string) {
+  if (query === "") {
+    return events;
+  }
+
+  return events.filter((event) => event.name.toLowerCase().includes(query.toLowerCase()));
+}
+
 export function formatDate(time: number) {
   const date = new Date(time);
 
