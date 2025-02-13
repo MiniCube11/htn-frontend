@@ -1,7 +1,7 @@
 import { TEvent } from "@/lib/type";
 import { formatTime, formatEventType, formatDateLong } from "@/lib/utils";
 import Link from "next/link";
-import { Heart, X } from "lucide-react";
+import { Heart } from "lucide-react";
 
 export default function EventDetail({ event, events, closeEvent, toggleLike, isLiked, setEventOpen }: { event: TEvent; events: TEvent[], closeEvent: () => void; toggleLike: (id: number) => void; isLiked: (id: number) => boolean; setEventOpen: (id: number | null) => void }) {
   const date = formatDateLong(event.start_time);

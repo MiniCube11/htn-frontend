@@ -15,7 +15,7 @@ export default function Login() {
     if (Cookies.get("username")) {
       router.push("/");
     }
-  }, []);
+  }, [router]);
 
   const handleLogin = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function Login() {
     <div className="flex flex-col items-center justify-center h-screen lg:bg-[#F3F5FC]">
       <form className="w-screen lg:w-[600px] py-16 bg-white lg:border lg:border-gray-300 rounded-lg flex flex-col justify-center items-center">
         <h2 className="text-2xl font-bold w-[90%] lg:w-[80%]">Log into your account</h2>
-        <p className="w-[90%] lg:w-[80%] mt-2">Join 1000+ other hackers at Canada's largest hackathon</p>
+        <p className="w-[90%] lg:w-[80%] mt-2">Join 1000+ other hackers at Canada’s largest hackathon</p>
         <h2 className="w-[90%] lg:w-[80%] mt-12 text-gray-800">Username</h2>
         <input
           type="text"
