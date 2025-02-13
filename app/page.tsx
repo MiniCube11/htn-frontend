@@ -119,7 +119,14 @@ export default function Home() {
       </div>
 
       {eventOpen !== null && 
-        <EventDetail event={events[eventOpen]} closeEvent={closeEvent} />}
+        <EventDetail
+          event={events.find(event => event.id === eventOpen) as TEvent}
+          events={events}
+          closeEvent={closeEvent}
+          isLiked={isLiked}
+          toggleLike={toggleLike}
+          setEventOpen={setEventOpen}
+        />}
     </div>
   );
 }
