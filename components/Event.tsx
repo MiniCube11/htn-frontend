@@ -1,7 +1,6 @@
 import { TEvent } from "@/lib/type";
 import { formatDate, formatTime, formatEventType } from "@/lib/utils";
 import { Heart } from "lucide-react";
-import { useState } from "react";
 
 export default function Event({ event, openEvent, toggleLike, isLiked }: { event: TEvent; openEvent: (id: number) => void; toggleLike: (id: number) => void; isLiked: (id: number) => boolean }) {
   const { month, day } = formatDate(event.start_time);
@@ -37,7 +36,7 @@ export default function Event({ event, openEvent, toggleLike, isLiked }: { event
         className={`text-xs mt-2 ${textColour} inline-block px-1.5 py-0.5 rounded-md ${bgColour}`}>
         {eventType}
       </span>
-      <span className="text-xs mt-2 ml-2 text-[#1f474c] border bg-[#ceeff3] inline-block px-1.5 py-0.5 rounded-md">
+      <span className="text-xs mt-2 ml-2 text-[#1f474c] bg-[#ceeff3] inline-block px-1.5 py-0.5 rounded-md">
         {event.permission === "public" ? "Public" : "Private"}
       </span>
     </div>

@@ -18,6 +18,18 @@ export function filterEventsByPermission(events: TEvent[], username: string) {
   return events;
 }
 
+export function filterEventsByType(events: TEvent[], eventType: string) {
+  if (eventType === "") {
+    return events;
+  }
+
+  return events.filter((event) => event.event_type === eventType);
+}
+
+export function filterLikedEvents(events: TEvent[], liked: Record<number, boolean>) {
+  return events.filter((event) => liked[event.id]);
+}
+
 export function searchByQuery(events: TEvent[], query: string) {
   if (query === "") {
     return events;
