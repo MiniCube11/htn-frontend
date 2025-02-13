@@ -110,7 +110,8 @@ export default function Home() {
         </div>
       </div>
 
-      {loading && <p>Loading...</p>}
+      {loading &&
+        <p className="mt-10">Loading...</p>}
       <div className="mt-10">  
         {events.map((event) => (
           <Event
