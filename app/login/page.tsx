@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { authenticateUser } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -30,8 +32,11 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen lg:bg-[#F3F5FC]">
-      <form className="w-screen lg:w-[600px] py-16 bg-white lg:border lg:border-gray-300 rounded-lg flex flex-col justify-center items-center">
-        <h2 className="text-2xl font-bold w-[90%] lg:w-[80%]">Log into your account</h2>
+      <form className="w-screen lg:w-[600px] py-12 bg-white lg:border lg:border-gray-300 rounded-lg flex flex-col justify-center items-center">
+        <Link href="/" className="">
+          <Image src="/htn-lg.png" alt="Hack the North" width={200} height={50} />
+        </Link>
+        <h2 className="mt-12 text-2xl font-bold w-[90%] lg:w-[80%]">Log into your account</h2>
         <p className="w-[90%] lg:w-[80%] mt-2">Join 1000+ other hackers at Canada’s largest hackathon</p>
         <h2 className="w-[90%] lg:w-[80%] mt-12 text-gray-800">Username</h2>
         <input
