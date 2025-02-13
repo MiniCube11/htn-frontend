@@ -39,7 +39,7 @@ export default function Home() {
 
   useEffect(() => {
     if (Cookies.get("username")) {
-      setUsername(Cookies.get("username"));
+      setUsername(Cookies.get("username") || "");
     }
 
     const fetchEvents = async () => {
