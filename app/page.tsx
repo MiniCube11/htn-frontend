@@ -3,6 +3,7 @@
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { getEvents, filterEventsByPermission, searchByQuery, filterEventsByType, filterLikedEvents } from "../lib/utils";
 import Event from "../components/Event";
@@ -61,9 +62,9 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full mt-24 mb-32">
+    <div className="flex flex-col items-center w-full mt-8 mb-32">
       <div className="w-[90vw] lg:w-[600px] flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Events</h2>
+        <Image src={require('../public/htn.png')} alt="Hack the North" width={50} height={50} />
         <div> 
             {username ?
             <div className="flex p-1 w-28 justify-between">
@@ -81,6 +82,10 @@ export default function Home() {
               Login
             </Link>}
         </div>
+      </div>
+
+      <div className="mt-10 w-[90vw] lg:w-[600px] flex justify-between items-center">
+        <h2 className="text-3xl font-bold">Events</h2>
       </div>
       
       <div className="relative flex flex-col lg:flex-row w-[90vw] lg:w-[600px] mt-6">
