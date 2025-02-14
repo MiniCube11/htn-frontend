@@ -1,5 +1,7 @@
 # Hack the North Frontend Developer Challenge
 
+![demo](docs/demo.png)
+
 Tech Stack:
 - Next.js
 - TypeScript
