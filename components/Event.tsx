@@ -17,14 +17,16 @@ export default function Event({ event, openEvent, toggleLike, isLiked }: { event
       <div className={`absolute rounded-l left-0 top-0 w-[5px] h-full ${bgColour}`}></div>
       <div className="flex justify-between items-center">
         <h2 className="font-medium">{event.name}</h2>
-        <Heart
-          size={18}
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleLike(event.id);
-          }}
-          className={isLiked(event.id) ? "fill-[#FF3040] stroke-[#FF3040]" : "stroke-[#9fa8b9] hover:stroke-[#f05d6a]"}
-        />
+        <div className="ml-2 w-6 flex justify-end">
+          <Heart
+            size={18}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLike(event.id);
+            }}
+            className={isLiked(event.id) ? "fill-[#FF3040] stroke-[#FF3040]" : "stroke-[#9fa8b9] hover:stroke-[#f05d6a]"}
+          />
+        </div>
       </div>
       <div className="block lg:flex text-gray-700 text-sm mt-1">
         <p className="mr-5">📆 {month} {day} {startTime} - {endTime}</p>

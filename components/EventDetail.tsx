@@ -25,11 +25,13 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
         </div>
         <div className="mt-4 flex justify-between items-center w-[calc(90vw-64px)] lg:w-[536px]">
           <h2 className="text-xl font-semibold">{event.name}</h2>
-          <Heart
-            size={18}
-            onClick={() => toggleLike(event.id)}
-            className={isLiked(event.id) ? "fill-[#FF3040] stroke-[#FF3040]" : "stroke-[#9fa8b9] hover:stroke-[#f05d6a]"}
-          />
+          <div className="ml-2 w-6 flex justify-end">
+            <Heart
+              size={18}
+              onClick={() => toggleLike(event.id)}
+              className={isLiked(event.id) ? "fill-[#FF3040] stroke-[#FF3040]" : "stroke-[#9fa8b9] hover:stroke-[#f05d6a]"}
+            />
+          </div>
         </div>
         <div className="block mt-0.5 w-[90vw] lg:w-[600px]">
           <div className="flex">
@@ -88,7 +90,7 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
                 {event.related_events.map((relatedEvent) => (
                   <button
                     key={relatedEvent}
-                    className="text-blue-500 hover:underline hover:text-blue-700 block"
+                    className="text-blue-500 hover:underline hover:text-blue-700 block text-left"
                     onClick={() => setEventOpen(relatedEvent)}>
                     {events.find(event => event.id === relatedEvent)?.name ?? ""}
                   </button>
