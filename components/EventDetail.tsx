@@ -77,7 +77,7 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
           )}
         </div>
 
-        <div className="mt-5 text-base">
+        <div className="mt-5 text-base text-gray-800">
           <p>{event.description}</p>
         </div>
 
