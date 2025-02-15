@@ -77,11 +77,11 @@ export default function EventDetail({ event, events, closeEvent, toggleLike, isL
           )}
         </div>
 
-        <div className="mt-5 text-base text-gray-800">
+        <div className="mt-5 text-base text-gray-800 mb-4">
           <p>{event.description}</p>
         </div>
 
-        {event.related_events && 
+        {event.related_events.length > 0 && 
           <>
             <div className="h-[0.5px] bg-gray-300 mt-6 mb-4" />
             <div>
